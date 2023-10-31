@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Locksley.Helpers;
+using Locksley.Services;
+using Locksley.Services.Implementation;
+using Microsoft.Extensions.Logging;
 
 namespace Locksley;
 
@@ -12,6 +15,10 @@ public static class MauiProgram {
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        builder.Services
+            .RegisterServices()
+            .RegisterViewAndPages();
+        
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

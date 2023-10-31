@@ -1,9 +1,13 @@
-﻿namespace Locksley;
+﻿using Locksley.Content.Pages;
+using Locksley.Services;
+
+namespace Locksley;
 
 public partial class App : Application {
-    public App() {
+    public App(IPageFactory pageFactory) {
         InitializeComponent();
 
-        MainPage = new NavigationPage(new MainPage());
+        var mainPage = pageFactory.CreateNew<MainPage>();
+        MainPage = new NavigationPage(mainPage);
     }
 }
