@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using Locksley.Client.Services;
+using Locksley.Client.Services.Implementation;
 using Locksley.Common.Attributes;
 using Locksley.Common.Exceptions;
 
@@ -7,11 +9,11 @@ namespace Locksley.Helpers;
 public static class ServiceHelper {
     public static IServiceCollection RegisterServices(this IServiceCollection services) {
         foreach (var service in Assembly.GetCallingAssembly().GetTypes()
-                     .Where(t => t.Namespace == "Locksley.Services.Implementation")) {
+                     .Where(t => t.Namespace == typeof(PageFactory).Namespace)) {
             var serviceLifetime = service.GetCustomAttribute<ServiceLifetimeAttribute>()?.ServiceLifetime ??
                                   ServiceLifetime.Transient;
             foreach (var serviceInterface in service.GetInterfaces()
-                         .Where(i => i.Namespace == "Locksley.Services")) {
+                         .Where(i => i.Namespace == typeof(IPageFactory).Namespace)) {
                 switch (serviceLifetime) {
                     case ServiceLifetime.Singleton:
                         services.AddSingleton(serviceInterface, service);
