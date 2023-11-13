@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locksley", "Locksley\Locksley.csproj", "{C6593EAC-11BE-43F6-B17D-BCD6787D68AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locksley.Data", "Locksley.Data\Locksley.Data.csproj", "{FF637635-A3D4-4639-9606-762F81601320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locksley.Common", "Locksley.Common\Locksley.Common.csproj", "{558E59D4-B717-4D74-A1C9-A858108DB44C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{C6593EAC-11BE-43F6-B17D-BCD6787D68AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6593EAC-11BE-43F6-B17D-BCD6787D68AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6593EAC-11BE-43F6-B17D-BCD6787D68AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF637635-A3D4-4639-9606-762F81601320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF637635-A3D4-4639-9606-762F81601320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF637635-A3D4-4639-9606-762F81601320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF637635-A3D4-4639-9606-762F81601320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{558E59D4-B717-4D74-A1C9-A858108DB44C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{558E59D4-B717-4D74-A1C9-A858108DB44C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{558E59D4-B717-4D74-A1C9-A858108DB44C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{558E59D4-B717-4D74-A1C9-A858108DB44C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

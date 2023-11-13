@@ -1,4 +1,4 @@
-﻿namespace Locksley.Content.Pages;
+﻿namespace Locksley.Client.Content.Pages;
 
 public partial class MainPage : ContentPage {
     public MainPage() {

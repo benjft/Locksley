@@ -1,4 +1,4 @@
-﻿namespace Locksley.Exceptions; 
+﻿namespace Locksley.Common.Exceptions; 
 
 public class ServiceLifetimeNotFoundException : Exception
 {

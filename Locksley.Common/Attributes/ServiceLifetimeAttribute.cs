@@ -1,4 +1,4 @@
-﻿namespace Locksley.Attributes; 
+﻿namespace Locksley.Common.Attributes; 
 
 [AttributeUsage(AttributeTargets.Class)]
 public class ServiceLifetimeAttribute(ServiceLifetime lifetime) : Attribute {

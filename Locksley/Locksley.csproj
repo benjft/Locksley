@@ -55,16 +55,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiXaml Update="Content\Pages\MainPage.xaml">
+      <ProjectReference Include="..\Locksley.Common\Locksley.Common.csproj" />
+      <ProjectReference Include="..\Locksley.Data\Locksley.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="App\Content\Pages\MainPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Content\Pages\MainPage.xaml.cs">
+      <Compile Update="App\Content\Pages\MainPage.xaml.cs">
         <DependentUpon>MainPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Client\Content\Pages\MainPage.xaml" />
     </ItemGroup>
 
 </Project>

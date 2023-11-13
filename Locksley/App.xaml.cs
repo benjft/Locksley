@@ -1,5 +1,5 @@
-﻿using Locksley.Content.Pages;
-using Locksley.Services;
+﻿using Locksley.Client.Content.Pages;
+using Locksley.Client.Services;
 
 namespace Locksley;
 

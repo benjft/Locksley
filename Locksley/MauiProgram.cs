@@ -1,6 +1,4 @@
 ﻿using Locksley.Helpers;
-using Locksley.Services;
-using Locksley.Services.Implementation;
 using Microsoft.Extensions.Logging;
 
 namespace Locksley;

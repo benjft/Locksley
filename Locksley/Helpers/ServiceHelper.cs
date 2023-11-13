@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Locksley.Attributes;
-using Locksley.Exceptions;
+using Locksley.Common.Attributes;
+using Locksley.Common.Exceptions;
 
 namespace Locksley.Helpers;
 
