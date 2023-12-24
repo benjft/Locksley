@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Locksley.Client.ViewModels; 
+namespace Locksley.ViewModels; 
 
 public abstract class BaseViewModel : INotifyPropertyChanged {
     public event PropertyChangedEventHandler PropertyChanged;

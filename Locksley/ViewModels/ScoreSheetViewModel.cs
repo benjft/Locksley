@@ -1,6 +1,6 @@
 ﻿using Locksley.Common.Models;
 
-namespace Locksley.Client.ViewModels;
+namespace Locksley.ViewModels;
 
 public class ScoreSheetViewModel(ScoreSheet scoreSheet) : BaseViewModel {
     public string Title {

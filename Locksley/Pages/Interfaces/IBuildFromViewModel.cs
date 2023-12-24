@@ -1,4 +1,4 @@
-﻿namespace Locksley.Client.Content.Interfaces; 
+﻿namespace Locksley.Pages.Interfaces; 
 
 public interface IBuildFromViewModel<out TView, in TViewModel> 
     where TView : IBuildFromViewModel<TView, TViewModel>

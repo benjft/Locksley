@@ -1,6 +1,6 @@
 ﻿using Locksley.Common.Models;
 
-namespace Locksley.Data.Repositories; 
+namespace Locksley.Data.Repositories.Interfaces; 
 
 public interface IScoreSheetRepository {
     IEnumerable<ScoreSheet> ScoreSheets { get; }

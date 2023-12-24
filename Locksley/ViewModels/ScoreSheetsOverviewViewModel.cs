@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Locksley.Client.ViewModels; 
+namespace Locksley.ViewModels; 
 
 public class ScoreSheetsOverviewViewModel : BaseViewModel {
     public ObservableCollection<ScoreSheetViewModel> ScoreSheets = new();

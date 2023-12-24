@@ -72,8 +72,4 @@
       </Compile>
     </ItemGroup>
 
-    <ItemGroup>
-      <AdditionalFiles Include="Client\Content\Pages\MainPage.xaml" />
-    </ItemGroup>
-
 </Project>

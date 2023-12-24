@@ -1,12 +1,13 @@
 ﻿using Locksley.Common.Attributes;
 using Locksley.Common.Models;
+using Locksley.Data.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace Locksley.Data.Repositories.Implementation; 
+namespace Locksley.Data.Repositories; 
 
 [ServiceLifetime(ServiceLifetime.Singleton)]
 public class DummyScoreSheetRepository(ILogger<DummyScoreSheetRepository> logger) : IScoreSheetRepository {
-    private Dictionary<int, ScoreSheet> _scoreSheets = 
+    private readonly Dictionary<int, ScoreSheet> _scoreSheets = 
         Enumerable.Range(1, 10)
         .ToDictionary(i => i, i => new ScoreSheet {
             Id = i,
