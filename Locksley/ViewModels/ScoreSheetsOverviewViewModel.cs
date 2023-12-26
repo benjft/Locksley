@@ -3,7 +3,7 @@
 namespace Locksley.ViewModels; 
 
 public class ScoreSheetsOverviewViewModel : BaseViewModel {
-    public ObservableCollection<ScoreSheetViewModel> ScoreSheets = new();
+    public ObservableCollection<ScoreSheetViewModel> ScoreSheets = [];
     
     
 }

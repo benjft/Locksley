@@ -4,6 +4,7 @@ using Locksley.Common.Exceptions;
 using Locksley.Pages;
 using Locksley.Services;
 using Locksley.Services.Interfaces;
+using Locksley.ViewModels;
 
 namespace Locksley.Helpers;
 
@@ -11,6 +12,7 @@ public static class ServiceHelper {
     private static readonly string ServicesNamespace = typeof(PageFactory).Namespace;
     private static readonly string ServiceInterfacesNamespace = typeof(IPageFactory).Namespace;
     private static readonly string PagesNamespace = typeof(MainPage).Namespace;
+    private static readonly string ViewModelsNamespace = typeof(BaseViewModel).Namespace;
 
 
     public static IServiceCollection RegisterServices(this IServiceCollection services) {
@@ -42,8 +44,27 @@ public static class ServiceHelper {
 
     public static IServiceCollection RegisterViewAndPages(this IServiceCollection services) {
         var viewAndPageTypes = Assembly.GetCallingAssembly().GetTypes()
-            .Where(t => t.Namespace == PagesNamespace
-                        && typeof(IView).IsAssignableFrom(t));
+            .Where(t => t.Namespace != null
+                        && t.Namespace.StartsWith(PagesNamespace)
+                        && typeof(IView).IsAssignableFrom(t)
+                        && t.IsClass 
+                        && !t.IsAbstract);
+
+        // Register all as Transient
+        foreach (var type in viewAndPageTypes) {
+            services.AddTransient(type);
+        }
+
+        return services;
+    }
+
+    public static IServiceCollection RegisterViewModels(this IServiceCollection services) {
+        var viewAndPageTypes = Assembly.GetCallingAssembly().GetTypes()
+            .Where(t => t.Namespace != null
+                        && t.Namespace.StartsWith(ViewModelsNamespace)
+                        && typeof(BaseViewModel).IsAssignableFrom(t)
+                        && t.IsClass
+                        && !t.IsAbstract);
 
         // Register all as Transient
         foreach (var type in viewAndPageTypes) {
