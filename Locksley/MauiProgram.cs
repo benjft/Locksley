@@ -15,7 +15,8 @@ public static class MauiProgram {
 
         builder.Services
             .RegisterServices()
-            .RegisterViewAndPages();
+            .RegisterViewAndPages()
+            .RegisterViewModels();
         
 #if DEBUG
         builder.Logging.AddDebug();

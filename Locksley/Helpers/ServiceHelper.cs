@@ -17,29 +17,36 @@ public static class ServiceHelper {
 
     public static IServiceCollection RegisterServices(this IServiceCollection services) {
         foreach (var service in Assembly.GetCallingAssembly().GetTypes()
-                     .Where(t => t.Namespace == ServicesNamespace)) {
+                     .Where(t => t.Namespace != null && 
+                                 t.Namespace.StartsWith(ServicesNamespace))) {
+            
             var serviceLifetime = service.GetCustomAttribute<ServiceLifetimeAttribute>()?.ServiceLifetime ??
                                   ServiceLifetime.Transient;
             foreach (var serviceInterface in service.GetInterfaces()
-                         .Where(i => i.Namespace == ServiceInterfacesNamespace)) {
-                switch (serviceLifetime) {
-                    case ServiceLifetime.Singleton:
-                        services.AddSingleton(serviceInterface, service);
-                        break;
-                    case ServiceLifetime.Scoped:
-                        services.AddScoped(serviceInterface, service);
-                        break;
-                    case ServiceLifetime.Transient:
-                        services.AddTransient(serviceInterface, service);
-                        break;
-                    default:
-                        throw new ServiceLifetimeNotFoundException(
-                            $"Invalid service lifetime for service: {service.Name}");
-                }
+                         .Where(i => i.Namespace != null && 
+                                     i.Namespace.StartsWith(ServiceInterfacesNamespace))) {
+                services.AddService(serviceLifetime, serviceInterface, service);
             }
         }
 
         return services;
+    }
+
+    private static void AddService(this IServiceCollection services, ServiceLifetime lifetime, Type serviceInterface, Type service) {
+        switch (lifetime) {
+            case ServiceLifetime.Singleton:
+                services.AddSingleton(serviceInterface, service);
+                break;
+            case ServiceLifetime.Scoped:
+                services.AddScoped(serviceInterface, service);
+                break;
+            case ServiceLifetime.Transient:
+                services.AddTransient(serviceInterface, service);
+                break;
+            default:
+                throw new ServiceLifetimeNotFoundException(
+                    $"Invalid service lifetime for service: {service.Name}");
+        }
     }
 
     public static IServiceCollection RegisterViewAndPages(this IServiceCollection services) {
