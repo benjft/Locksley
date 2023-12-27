@@ -1,4 +1,5 @@
-﻿using Locksley.Helpers;
+﻿using Locksley.Data.Helpers;
+using Locksley.Helpers;
 using Microsoft.Extensions.Logging;
 
 namespace Locksley;
@@ -16,7 +17,9 @@ public static class MauiProgram {
         builder.Services
             .RegisterServices()
             .RegisterViewAndPages()
-            .RegisterViewModels();
+            .RegisterViewModels()
+            .RegisterRepositories()
+            .ConfigureLogging();
         
 #if DEBUG
         builder.Logging.AddDebug();

@@ -1,18 +1,26 @@
 ﻿using System.Reflection;
 using Locksley.Common.Attributes;
-using Locksley.Common.Exceptions;
+using Locksley.Common.Helpers;
 using Locksley.Pages;
 using Locksley.Services;
 using Locksley.Services.Interfaces;
 using Locksley.ViewModels;
+using Microsoft.Extensions.Logging;
+
+#if ANDROID
+using LoggingProvider = Locksley.Services.AndroidLoggingProvider;
+#else
+// only included to hide an error in some unreachable code
+using LoggingProvider = Locksley.Services.ConsoleLoggingProvider;
+#endif
 
 namespace Locksley.Helpers;
 
 public static class ServiceHelper {
-    private static readonly string ServicesNamespace = typeof(PageFactory).Namespace;
-    private static readonly string ServiceInterfacesNamespace = typeof(IPageFactory).Namespace;
-    private static readonly string PagesNamespace = typeof(MainPage).Namespace;
-    private static readonly string ViewModelsNamespace = typeof(BaseViewModel).Namespace;
+    private static readonly string ServicesNamespace = typeof(PageFactory).Namespace!;
+    private static readonly string ServiceInterfacesNamespace = typeof(IPageFactory).Namespace!;
+    private static readonly string PagesNamespace = typeof(MainPage).Namespace!;
+    private static readonly string ViewModelsNamespace = typeof(BaseViewModel).Namespace!;
 
 
     public static IServiceCollection RegisterServices(this IServiceCollection services) {
@@ -30,23 +38,6 @@ public static class ServiceHelper {
         }
 
         return services;
-    }
-
-    private static void AddService(this IServiceCollection services, ServiceLifetime lifetime, Type serviceInterface, Type service) {
-        switch (lifetime) {
-            case ServiceLifetime.Singleton:
-                services.AddSingleton(serviceInterface, service);
-                break;
-            case ServiceLifetime.Scoped:
-                services.AddScoped(serviceInterface, service);
-                break;
-            case ServiceLifetime.Transient:
-                services.AddTransient(serviceInterface, service);
-                break;
-            default:
-                throw new ServiceLifetimeNotFoundException(
-                    $"Invalid service lifetime for service: {service.Name}");
-        }
     }
 
     public static IServiceCollection RegisterViewAndPages(this IServiceCollection services) {
@@ -78,6 +69,23 @@ public static class ServiceHelper {
             services.AddTransient(type);
         }
 
+        return services;
+    }
+
+    public static IServiceCollection ConfigureLogging(this IServiceCollection services) {
+        if (FlagHelper.IsAndroid) {
+            services.AddLogging(configure => {
+                const LogLevel logLevel = FlagHelper.IsDebug ? LogLevel.Debug : LogLevel.Information;
+                
+                configure.AddProvider(new LoggingProvider())
+                    .AddFilter((_, l) => l >= logLevel);
+            });
+        } else {
+            services.AddLogging(configure => {
+                configure.AddDebug();
+                configure.AddConsole();
+            });
+        }
         return services;
     }
 }
