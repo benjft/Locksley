@@ -8,7 +8,7 @@ namespace Locksley.Data.Helpers;
 public static class ServiceHelper {
     private static readonly string RepositoryNamespace = typeof(DummyScoreSheetRepository).Namespace;
         public static IServiceCollection RegisterRepositories(this IServiceCollection services) {
-        foreach (var service in Assembly.GetCallingAssembly().GetTypes()
+        foreach (var service in typeof(DummyScoreSheetRepository).Assembly.GetTypes()
                      .Where(t => t.Namespace != null && 
                                  t.Namespace.StartsWith(RepositoryNamespace))) {
             
