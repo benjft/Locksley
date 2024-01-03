@@ -12,7 +12,7 @@ public class ScoreSheetsOverviewViewModel : BaseViewModel {
         scoreSheetRepository.PropertyChanged += ScoreSheetRepositoryOnPropertyChanged;    
     }
 
-    private void ScoreSheetRepositoryOnPropertyChanged(object sender, PropertyChangedEventArgs e) {
+    private void ScoreSheetRepositoryOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
         if (sender is not IScoreSheetRepository scoreSheetRepository) {
             throw new Exception("Expected this to be called by an IScoreSheetRepository");
         }
