@@ -3,7 +3,7 @@ using Locksley.Services.Interfaces;
 
 namespace Locksley;
 
-public partial class App : Application {
+public partial class App {
     public App(IPageFactory pageFactory) {
         InitializeComponent();
 

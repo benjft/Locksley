@@ -81,6 +81,7 @@ public static class ServiceHelper {
                     .AddFilter((_, l) => l >= logLevel);
             });
         } else {
+#pragma warning restore CS0162 // Unreachable code detected
             services.AddLogging(configure => {
                 configure.AddDebug();
                 configure.AddConsole();

@@ -30,6 +30,7 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
         <LangVersion>preview</LangVersion>
         <NeutralLanguage>en-GB</NeutralLanguage>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -65,6 +66,9 @@
       <MauiXaml Update="App\Content\Pages\MainPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="Pages\Views\ScoreSheetListItemView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -77,6 +81,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AppResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Pages\Views\ScoreSheetListItemView.xaml.cs">
+        <DependentUpon>ScoreSheetListItemView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -84,6 +92,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Locksley.csproj.DotSettings" />
     </ItemGroup>
 
 </Project>
