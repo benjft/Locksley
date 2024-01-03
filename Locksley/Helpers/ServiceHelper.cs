@@ -5,18 +5,10 @@ using Locksley.Pages;
 using Locksley.Services;
 using Locksley.Services.Interfaces;
 using Locksley.ViewModels;
-using Microsoft.Extensions.Logging;
-
-#if ANDROID
-using LoggingProvider = Locksley.Services.AndroidLoggingProvider;
-#else
-// only included to hide an error in some unreachable code
-using LoggingProvider = Locksley.Services.ConsoleLoggingProvider;
-#endif
 
 namespace Locksley.Helpers;
 
-public static class ServiceHelper {
+public static partial class ServiceHelper {
     private static readonly string ServicesNamespace = typeof(PageFactory).Namespace!;
     private static readonly string ServiceInterfacesNamespace = typeof(IPageFactory).Namespace!;
     private static readonly string PagesNamespace = typeof(MainPage).Namespace!;
@@ -45,8 +37,7 @@ public static class ServiceHelper {
             .Where(t => t.Namespace != null
                         && t.Namespace.StartsWith(PagesNamespace)
                         && typeof(IView).IsAssignableFrom(t)
-                        && t.IsClass 
-                        && !t.IsAbstract);
+                        && t is {IsClass: true, IsAbstract: false});
 
         // Register all as Transient
         foreach (var type in viewAndPageTypes) {
@@ -61,8 +52,7 @@ public static class ServiceHelper {
             .Where(t => t.Namespace != null
                         && t.Namespace.StartsWith(ViewModelsNamespace)
                         && typeof(BaseViewModel).IsAssignableFrom(t)
-                        && t.IsClass
-                        && !t.IsAbstract);
+                        && t is {IsClass: true, IsAbstract: false});
 
         // Register all as Transient
         foreach (var type in viewAndPageTypes) {
@@ -72,21 +62,5 @@ public static class ServiceHelper {
         return services;
     }
 
-    public static IServiceCollection ConfigureLogging(this IServiceCollection services) {
-        if (FlagHelper.IsAndroid) {
-            services.AddLogging(configure => {
-                const LogLevel logLevel = FlagHelper.IsDebug ? LogLevel.Debug : LogLevel.Information;
-                
-                configure.AddProvider(new LoggingProvider())
-                    .AddFilter((_, l) => l >= logLevel);
-            });
-        } else {
-#pragma warning restore CS0162 // Unreachable code detected
-            services.AddLogging(configure => {
-                configure.AddDebug();
-                configure.AddConsole();
-            });
-        }
-        return services;
-    }
+    public static partial IServiceCollection ConfigureLogging(this IServiceCollection services);
 }
